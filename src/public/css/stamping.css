@@ -1,0 +1,21 @@
+.stamping__content {
+    max-width: 1230px;
+}
+
+.stamping__box {
+    display: flex;
+}
+
+.stamping-form {
+    margin: 20px;
+}
+
+.stamping-form__btn {
+    background-color: #FFF;
+    border: none;
+    cursor: pointer;
+    width: 450px;
+    height: 200px;
+    font-size: 24px;
+    font-weight: bold;
+}
