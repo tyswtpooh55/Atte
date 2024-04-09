@@ -1,0 +1,12 @@
+.atte-box {
+    margin: 20px;
+}
+
+.atte__link {
+    color: #000;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 15px auto;
+    text-decoration: none;
+    cursor: pointer;
+}
