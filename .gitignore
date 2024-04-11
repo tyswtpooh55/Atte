@@ -16,3 +16,4 @@
 /docker/mysql/data
 .vscode/
 /src/.env.testing
+.ssh/

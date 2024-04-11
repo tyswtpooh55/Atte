@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\Work;
 use App\Models\Breaking;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
