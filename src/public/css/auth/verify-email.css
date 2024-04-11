@@ -1,0 +1,18 @@
+.card-header {
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+}
+
+.card-body {
+    font-size: 18px;
+    text-align: center;
+}
+
+.btn-link {
+    border: none;
+    color: #214be0;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}

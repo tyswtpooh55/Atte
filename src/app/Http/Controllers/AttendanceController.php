@@ -10,18 +10,17 @@ use Carbon\Carbon;
 
 class AttendanceController extends Controller
 {
+    // 日付別勤怠管理画面
     public function attendance(Request $request)
     {
-        // 日付管理
         $thisDate = $request->date ? new Carbon($request->date) : Carbon::today();
         $prevDate = $thisDate->copy()->subDay();
         $nextDate = $thisDate->copy()->addDay();
 
         $thisDateAttendances = Work::whereDate('work_in', $thisDate)->paginate(5);
 
-        // dateCalculate()メソッドから$dateCalculationsHours=[$totalWorkHours, $totalBreakingHours]を取得
         $dateCalculationsHours = $this->dateCalculate($thisDateAttendances);
-        // 実働時間の計算
+
         $trueWorkHours = [];
         foreach ($thisDateAttendances as $thisDateAttendance) {
             $dateCalculationHours = $dateCalculationsHours[$thisDateAttendance->id];
@@ -45,23 +44,20 @@ class AttendanceController extends Controller
 
         foreach ($attendances as $attendance)
         {
-            $totalWorkHours = 0; //勤務合計時間初期化
-            $totalBreakingHours = 0; // 休憩豪快時間初期化
+            $totalWorkHours = 0;
+            $totalBreakingHours = 0;
 
-            // 勤務時間の計算($totalWorkHours = work_out - work_in)
             $workIn = Carbon::parse($attendance->work_in);
             $workOut = Carbon::parse($attendance->work_out);
             $totalWorkHours += $workIn->diffInSeconds($workOut);
 
-
-            // thisDateAttendancesの勤務情報に紐づくbreakingの情報取得
             $thisDateBreakings = Breaking::where('work_id', $attendance->id)->get();
-            $totalBreakingHoursPerAttendance = 0; // 勤務ごとの休憩合計時間の初期化
-                // 休憩時間の計算($totalBreakingHours = breaking_out - breaking_in)
+            $totalBreakingHoursPerAttendance = 0;
+
             foreach ($thisDateBreakings as $thisDateBreaking) {
                 $breakingIn = Carbon::parse($thisDateBreaking->breaking_in);
                 $breakingOut = Carbon::parse($thisDateBreaking->breaking_out);
-                $totalBreakingHoursPerAttendance += $breakingIn->diffInSeconds($breakingOut); // 休憩時間の加算
+                $totalBreakingHoursPerAttendance += $breakingIn->diffInSeconds($breakingOut);
             }
             $totalBreakingHours += $totalBreakingHoursPerAttendance;
 
@@ -70,7 +66,7 @@ class AttendanceController extends Controller
                 'totalBreakingHours' => $totalBreakingHours,
             ];
         }
-        // dd($calculationsHours);
+
         return $dateCalculationsHours;
 
     }

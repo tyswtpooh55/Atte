@@ -71,12 +71,12 @@ class StampingController extends Controller
         // 日付を跨いでいるときの処理
         if ($prevDayWork && is_null($prevDayWork->work_out)) {
             $prevDayWork->update([
-                'work_out' => Carbon::yesterday()->endOfDay() // 日付を跨ぐ前の勤務記録に前日の23:59:59の勤務終了を登録
+                'work_out' => Carbon::yesterday()->endOfDay()
             ]);
             $work = Work::create([
                 'user_id' => $user->id,
-                'work_in' => Carbon::today()->startOfDay(), // 日付跨いだ後の当日の勤務記録作成
-                'work_out' => Carbon::now(), // 当日の勤務終了
+                'work_in' => Carbon::today()->startOfDay(),
+                'work_out' => Carbon::now(),
             ]);
         }
 
@@ -128,7 +128,7 @@ class StampingController extends Controller
             ]);
             $prevDayBreaking->update([
                 'breaking_out' => Carbon::yesterday()->endOfDay()
-            ]);    // 日付を跨ぐ前の勤務記録に23:59:59の勤務終了と休憩終了を登録
+            ]);
 
             $work = Work::create([
                 'user_id' => $user->id,
@@ -138,7 +138,7 @@ class StampingController extends Controller
                 'work_id' => $work->id,
                 'breaking_in' => Carbon::today()->startOfDay(),
                 'breaking_out' => Carbon::now(),
-            ]);    // 日付を跨いだ後の勤務記録、休憩記録作成
+            ]);
 
 
         }
