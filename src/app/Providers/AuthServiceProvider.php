@@ -6,6 +6,7 @@ use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Lang;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -31,9 +32,10 @@ class AuthServiceProvider extends ServiceProvider
 
         VerifyEmail::toMailUsing(function ($notifiable, $url) {
             return (new MailMessage)
-                ->subject('メール認証リンク')
-                ->line('以下のリンクをクリックしてメール認証を完了してください。')
-                ->action('メールアドレス認証', $url);
+                ->subject(Lang::get('Verify Email Address'))
+                ->line(Lang::get('Please click the button below to verify your email address.'))
+                ->action('メールアドレス認証', $url)
+                ->line(Lang::get('If you did not create an account, no further action is required.'));
         });
     }
 }
