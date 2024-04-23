@@ -21,7 +21,7 @@
 ## 使用技術(実行環境)
 - PHP 8.3.0
 - Laravel 8.83.27
-- MYSQL 8.0.26
+- MYSQL 8.0.35
 
 ## テーブル設計
 ![alt text](tables.atte.png)
